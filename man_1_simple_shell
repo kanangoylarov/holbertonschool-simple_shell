@@ -1,41 +1,93 @@
-.TH SIMPLE_SHELL 1 "2022" "AOUT 2022" "simple_shell"
+.TH simple_shell 1 "December 2023" "Simple Shell Manual"
+
 .SH NAME
-simple_shell \- a simple shell implementation
+simple_shell \- A simple Unix-like shell
+
+.SH SYNOPSIS
+.B simple_shell
 
 .SH DESCRIPTION
-simple_shell is a recreation of a shell that takes commands from the keyboard and gives them to the operating system to perform.
+.NP
+The
+.B simple_shell
+is a minimalistic shell implementation designed for basic command-line operations.
 
-.SH OPERANDS
-Commands: Instructions that instruct the system to perform some action.
-
-Arguments: Allow users to control the flow of the command or specify input data for the command.
+.SH OPTIONS
+The
+.B simple_shell
+does not have any command-line options.
 
 .SH COMMANDS
-.TP
-.B cd
-Change directory.
+.NP
+The following commands are supported:
 
-.TP
-.B pwd
-Print working directory.
+- \fBexit\fP: Exits the shell.
+- \fBenv\fP: Prints the current environment variables.
+- Any other executable located in the system's PATH or specified with a full path.
 
-.TP
-.B cat
-Show content of a file.
+.SH USAGE
+.PP
+To use the shell, follow these steps:
 
-.TP
-.B env
-Print environment variables.
+1. Compile the code using a C compiler like GCC:
+.B
+gcc -o hsh *.c
 
-.TP
-.B printenv
-Print shell variables.
+2. Run the shell:
+.B
+./hsh
 
-.TP
-.B exit
-Exit the shell.
+3. Enter commands and press Enter to execute them.
+
+.SH EXAMPLES
+.PP
+Example 1: Run a command
+.B
+$ ./hsh
+$ ls
+
+Example 2: Exit the shell
+.B
+$ ./hsh
+$ exit
+
+.SH RETURN VALUES
+.PP
+The shell returns the following exit values:
+
+- 0: Successful execution.
+- 1: Error during execution.
+- 127: Command not found.
 
 .SH AUTHORS
-Kanan <https://github.com/kanangoylarov>
-Mirgubad <https://github.com/Mirgubad>
+.PP
+- Kamal Huseynli
+- Zaman Kazimov
 
+.SH HOLBERTON SCHOOL COHORT
+.PP
+BAK-1023
+
+.SH SEE ALSO
+.PP
+The full source code and documentation for the simple shell can be found at: https://github.com/yourusername/simple_shell
+
+.SH BUGS
+.PP
+Report any bugs to the GitHub repository issue tracker.
+
+.SH COPYRIGHT
+.PP
+This is free and unencumbered software released into the public domain.
+
+.SH NOTES
+.PP
+This manual page was written by [Your Name] <your.email@example.com>.
+
+.SH VERSION
+.PP
+1.0
+
+.SH DATE
+.PP
+December 2023

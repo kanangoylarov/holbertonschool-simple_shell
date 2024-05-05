@@ -1,76 +1,50 @@
-#include "main.h"
+#include "shell.h"
+
 /**
- * main - execution
- * Return: 0
+ * main - Base functionality of shell.
+ *
+ * Return: Always 0.
  */
 int main(void)
 {
+	int i = 0, turn = 0;
+	char *line = NULL;
+	char **args = NULL;
 
-	char *ln, **command;
-	int st = 1;
-
-	signal(SIGINT, handler_function);
-	do
-
+	while (1)
 	{
-		if (isatty(STDIN_FILENO))
-			printf("$ ");
-
-		else
+		line = readline();
+		if (!line)
+			break;
+		args = parse_line(line, " \n\t");
+		free(line);
+		if (!args[0])
 		{
-			ln = getln();
-			command = formatln(ln);
-			search_exe(command);
-			launch_process(command);
-			free(ln);
-			free(command);
-			return (0);
-		}
-
-		ln = getln();
-		command = formatln(ln);
-		if (*command == NULL)
+			for (i = 0; args[i]; i++)
+				free(args[i]);
+			free(args);
+			continue; }
+		else if (strcmp(args[0], "exit") == 0 && args[1] == NULL)
 		{
-			free(ln);
-			free(command);
-			continue;
-		}
-		search_exe(command);
-		st = launch_process(command);
-		free(ln);
-		free(command);
+			for (i = 0; args[i]; i++)
+				free(args[i]);
+			free(args);
+			exit(turn); }
+		else if (strcmp(args[0], "env") == 0)
+		{
+			for (i = 0; args[i]; i++)
+			free(args[i]);
+			free(args);
+			print_env();
+			continue; }
+		turn = execute_command(args);
 
-	} while (st);
+		for (i = 0; args[i]; i++)
+			free(args[i]);
+		free(args); }
 
+	free(line);
+	if (turn)
+		exit(turn);
 	return (0);
-}
-
-/**
- * launch_process - execute command
- * @command: command
- * Return: 1
- */
-int launch_process(char **command)
-{
-	pid_t pid;
-
-	pid = fork();
-	if (pid == 0 && execve(command[0], command, environ) == -1)
-		perror("./shell");
-
-	else
-		wait(&pid);
-
-	return (1);
-}
-/**
- * handler_function - handle signit
- * @i: integer
- */
-void handler_function(int i)
-{
-	if (i)
-	{
-		write(STDOUT_FILENO, "\n$ ", strlen("\n$ "));
-	}
 }
