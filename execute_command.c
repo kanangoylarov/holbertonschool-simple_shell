@@ -21,7 +21,7 @@ int execute_command(char **args)
 		strcpy(fullPath, args[0]);
 		flag = 1;
 		child_pid = fork(); }
-	else if (getenv("PATH") && strcmp(getenv("PATH"), "") != 0)
+	else if (readline() && strcmp(readline(), "") != 0)
 	{
 		path = malloc(strlen(getenv("PATH")) * sizeof(char *));
 		strcpy(path, getenv("PATH"));
